@@ -1,0 +1,324 @@
+Microsoft Windows [Version 10.0.22631.5039]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\lenovo>CD C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| akademik           |
+| dbmss_2420506040   |
+| information_schema |
+| mahasiswa          |
+| mysql              |
+| nopel              |
+| novel              |
+| performance_schema |
+| perusahaan         |
+| phpmyadmin         |
+| pratikum_sql       |
+| siperpus           |
+| test               |
++--------------------+
+13 rows in set (0.085 sec)
+
+MariaDB [(none)]> use dbmss_2420506040
+Database changed
+MariaDB [dbmss_2420506040]> show tables;
++----------------------------+
+| Tables_in_dbmss_2420506040 |
++----------------------------+
+| tbgaji                     |
+| tbpegawai                  |
++----------------------------+
+2 rows in set (0.004 sec)
+
+MariaDB [dbmss_2420506040]> create table mahasiswa (
+    -> nim CHAR(10) NOT NULL PRIMARY KEY,
+    -> nama VARCHAR(100) NOT NULL,
+    -> jk ENUM('L','P') NOT NULL,
+    -> alamat VARCHAR(100) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.169 sec)
+
+MariaDB [dbmss_2420506040]> desc mahasiswa;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| nim    | char(10)      | NO   | PRI | NULL    |       |
+| nama   | varchar(100)  | NO   |     | NULL    |       |
+| jk     | enum('L','P') | NO   |     | NULL    |       |
+| alamat | varchar(100)  | NO   |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+4 rows in set (0.082 sec)
+
+MariaDB [dbmss_2420506040]> INSERT INTO mahasiswa (nim, nama, jk, alamat) values
+    -> ('101', 'Arif', 'L', 'Jl. Kenangan'),
+    -> ('102', 'Budi', 'L', 'Jl. Jombang'),
+    -> ('103', 'Wati', 'P', 'Jl. Surabaya'),
+    -> ('104', 'Ika', 'P', 'Jl. Jombang'),
+    -> ('105', 'Tono', 'L', 'Jl. Jakarta'),
+    -> ('106', 'Iwan', 'L', 'Jl. Bandung'),
+    -> ('107', 'Sari', 'P', 'Jl. Malang');
+Query OK, 7 rows affected (0.102 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [dbmss_2420506040]> select * from mahasiswa;
++-----+------+----+--------------+
+| nim | nama | jk | alamat       |
++-----+------+----+--------------+
+| 101 | Arif | L  | Jl. Kenangan |
+| 102 | Budi | L  | Jl. Jombang  |
+| 103 | Wati | P  | Jl. Surabaya |
+| 104 | Ika  | P  | Jl. Jombang  |
+| 105 | Tono | L  | Jl. Jakarta  |
+| 106 | Iwan | L  | Jl. Bandung  |
+| 107 | Sari | P  | Jl. Malang   |
++-----+------+----+--------------+
+7 rows in set (0.001 sec)
+
+MariaDB [dbmss_2420506040]> create table matakuliah (
+    -> kd_mk CHAR(10) NOT NULL PRIMARY KEY,
+    -> nama_mk VARCHAR(100) NOT NULL,
+    -> sks CHAR(10) NOT NULL,
+    -> semester CHAR(10) NOT NULL,
+    -> kode_dos CHAR(10) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.025 sec)
+
+MariaDB [dbmss_2420506040]> desc matakuliah;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| kd_mk    | char(10)     | NO   | PRI | NULL    |       |
+| nama_mk  | varchar(100) | NO   |     | NULL    |       |
+| sks      | char(10)     | NO   |     | NULL    |       |
+| semester | char(10)     | NO   |     | NULL    |       |
+| kode_dos | char(10)     | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+5 rows in set (0.020 sec)
+
+MariaDB [dbmss_2420506040]> INSERT INTO matakuliah (kd_mk, nama_mk, sks, semester, kode_dos) values
+    -> ('PTI123', 'Grafik Multimedia', '3', '5', '12'),
+    -> ('PTI333', 'Basis Data Terdistribusi', '3', '5', '10'),
+    -> ('PTI447', 'Pratikum Basis Data', '1', '3', '11'),
+    -> ('PTI777', 'Sistem Informasi', '2', '3', '99'),
+    -> ('TIK123', 'Jaringan Komputer', '2', '5', '33'),
+    -> ('TIK333', 'Sistem Informasi', '3', '5', '10'),
+    -> ('TIK342', 'Pratikum Basis Data', '1', '3', '11');
+Query OK, 7 rows affected (0.006 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [dbmss_2420506040]> select * from matakuliah;
++--------+--------------------------+-----+----------+----------+
+| kd_mk  | nama_mk                  | sks | semester | kode_dos |
++--------+--------------------------+-----+----------+----------+
+| PTI123 | Grafik Multimedia        | 3   | 5        | 12       |
+| PTI333 | Basis Data Terdistribusi | 3   | 5        | 10       |
+| PTI447 | Pratikum Basis Data      | 1   | 3        | 11       |
+| PTI777 | Sistem Informasi         | 2   | 3        | 99       |
+| TIK123 | Jaringan Komputer        | 2   | 5        | 33       |
+| TIK333 | Sistem Informasi         | 3   | 5        | 10       |
+| TIK342 | Pratikum Basis Data      | 1   | 3        | 11       |
++--------+--------------------------+-----+----------+----------+
+7 rows in set (0.001 sec)
+
+MariaDB [dbmss_2420506040]> create table jurusan (
+    -> kode_jur VARCHAR(5) NOT NULL PRIMARY KEY,
+    -> nama_jur VARCHAR(50) NOT NULL,
+    -> kode_dos CHAR(5) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.015 sec)
+
+MariaDB [dbmss_2420506040]> desc jurusan;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| kode_jur | varchar(5)  | NO   | PRI | NULL    |       |
+| nama_jur | varchar(50) | NO   |     | NULL    |       |
+| kode_dos | char(5)     | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.021 sec)
+
+MariaDB [dbmss_2420506040]> INSERT INTO jurusan (kode_jur, nama_jur, kode_dos) values
+    -> ('TE', 'Teknik Elektro', '10'),
+    -> ('TM', 'Teknik Mesin', '13'),
+    -> ('TS', 'Teknik Sipil', '23');
+Query OK, 3 rows affected (0.004 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [dbmss_2420506040]> select * from jurusan
+    -> ;
++----------+----------------+----------+
+| kode_jur | nama_jur       | kode_dos |
++----------+----------------+----------+
+| TE       | Teknik Elektro | 10       |
+| TM       | Teknik Mesin   | 13       |
+| TS       | Teknik Sipil   | 23       |
++----------+----------------+----------+
+3 rows in set (0.003 sec)
+
+MariaDB [dbmss_2420506040]> create table dosen (
+    -> kode_dos CHAR(5) NOT NULL PRIMARY KEY,
+    -> nama_dos VARCHAR(50) NOT NULL,
+    -> alamat_dos VARCHAR(100) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.020 sec)
+
+MariaDB [dbmss_2420506040]> desc dosen;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| kode_dos   | char(5)      | NO   | PRI | NULL    |       |
+| nama_dos   | varchar(50)  | NO   |     | NULL    |       |
+| alamat_dos | varchar(100) | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+3 rows in set (0.032 sec)
+
+MariaDB [dbmss_2420506040]> INSERT INTO dosen (kode_dos, nama_dos, alamat_dos) values
+    -> ('10', 'Suharto', 'Jl. Jombang'),
+    -> ('11', 'Martono', 'Jl. Kalpataru'),
+    -> ('12', 'Rahmawati', 'Jl. Jakarta'),
+    -> ('13', 'Bambang', 'Jl. Bandung'),
+    -> ('14', 'Nurul', 'Jl. Raya Tidar');
+Query OK, 5 rows affected (0.011 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [dbmss_2420506040]> select * from dosen;
++----------+-----------+----------------+
+| kode_dos | nama_dos  | alamat_dos     |
++----------+-----------+----------------+
+| 10       | Suharto   | Jl. Jombang    |
+| 11       | Martono   | Jl. Kalpataru  |
+| 12       | Rahmawati | Jl. Jakarta    |
+| 13       | Bambang   | Jl. Bandung    |
+| 14       | Nurul     | Jl. Raya Tidar |
++----------+-----------+----------------+
+5 rows in set (0.001 sec)
+
+MariaDB [dbmss_2420506040]> create table ambil_mk (
+    -> nim CHAR(10) NOT NULL,
+    -> kd_mk VARCHAR(20) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.044 sec)
+
+MariaDB [dbmss_2420506040]> desc ambil_mk;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| nim   | char(10)    | NO   |     | NULL    |       |
+| kd_mk | varchar(20) | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.054 sec)
+
+MariaDB [dbmss_2420506040]> insert into ambil_mk (nim, kd_mk) values
+    -> ('101', 'PTI447'),
+    -> ('103', 'TIK333'),
+    -> ('104', 'PTI333'),
+    -> ('104', 'PTI777'),
+    -> ('105', 'PTI123'),
+    -> ('107', 'PTI777');
+Query OK, 6 rows affected (0.005 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [dbmss_2420506040]> select * from ambil_mk;
++-----+--------+
+| nim | kd_mk  |
++-----+--------+
+| 101 | PTI447 |
+| 103 | TIK333 |
+| 104 | PTI333 |
+| 104 | PTI777 |
+| 105 | PTI123 |
+| 107 | PTI777 |
++-----+--------+
+6 rows in set (0.001 sec)
+
+MariaDB [dbmss_2420506040]> SELECT * FROM mahasiswa WHERE jk = (SELECT jk FROM mahasiswa WHERE nama =
+"Wati")
+    -> ;
++-----+------+----+--------------+
+| nim | nama | jk | alamat       |
++-----+------+----+--------------+
+| 103 | Wati | P  | Jl. Surabaya |
+| 104 | Ika  | P  | Jl. Jombang  |
+| 107 | Sari | P  | Jl. Malang   |
++-----+------+----+--------------+
+3 rows in set (0.034 sec)
+                                                                                                                                  SELECT d.kode_dos, d.nama_dos FROM dosen d MariaDB [dbmss_2420506040]> SELECT d.kode_dos, d.nama_dos FROM dosen d WHERE d.kode_dos IN (SELECT kode_dos FROM matakuliah);
++----------+-----------+
+| kode_dos | nama_dos  |
++----------+-----------+
+| 10       | Suharto   |
+| 11       | Martono   |
+| 12       | Rahmawati |
++----------+-----------+
+3 rows in set (0.004 sec)
+
+MariaDB [dbmss_2420506040]> SELECT * FROM matakuliah WHERE sks > ANY (SELECT sks FROM matakuliah WHERE
+ semester = 3);
++--------+--------------------------+-----+----------+----------+
+| kd_mk  | nama_mk                  | sks | semester | kode_dos |
++--------+--------------------------+-----+----------+----------+
+| PTI123 | Grafik Multimedia        | 3   | 5        | 12       |
+| PTI333 | Basis Data Terdistribusi | 3   | 5        | 10       |
+| PTI777 | Sistem Informasi         | 2   | 3        | 99       |
+| TIK123 | Jaringan Komputer        | 2   | 5        | 33       |
+| TIK333 | Sistem Informasi         | 3   | 5        | 10       |
++--------+--------------------------+-----+----------+----------+
+5 rows in set (0.034 sec)
+
+MariaDB [dbmss_2420506040]> SELECT * FROM matakuliah WHERE sks > ALL (SELECT sks FROM matakuliah WHERE
+ semester = 3);
++--------+--------------------------+-----+----------+----------+
+| kd_mk  | nama_mk                  | sks | semester | kode_dos |
++--------+--------------------------+-----+----------+----------+
+| PTI123 | Grafik Multimedia        | 3   | 5        | 12       |
+| PTI333 | Basis Data Terdistribusi | 3   | 5        | 10       |
+| TIK333 | Sistem Informasi         | 3   | 5        | 10       |
++--------+--------------------------+-----+----------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [dbmss_2420506040]> SELECT *
+    -> FROM matakuliah m
+    -> WHERE EXISTS
+    ->  (SELECT *
+    ->  FROM ambil_mk a
+    ->  WHERE m.kd_mk = a.kd_mk);
++--------+--------------------------+-----+----------+----------+
+| kd_mk  | nama_mk                  | sks | semester | kode_dos |
++--------+--------------------------+-----+----------+----------+
+| PTI123 | Grafik Multimedia        | 3   | 5        | 12       |
+| PTI333 | Basis Data Terdistribusi | 3   | 5        | 10       |
+| PTI447 | Pratikum Basis Data      | 1   | 3        | 11       |
+| PTI777 | Sistem Informasi         | 2   | 3        | 99       |
+| TIK333 | Sistem Informasi         | 3   | 5        | 10       |
++--------+--------------------------+-----+----------+----------+
+5 rows in set (0.074 sec)
+
+MariaDB [dbmss_2420506040]> SELECT *
+    -> FROM matakuliah m
+    -> WHERE NOT EXISTS
+    ->  (SELECT *
+    ->  FROM ambil_mk a
+    ->  WHERE m.kd_mk = a.kd_mk);
++--------+---------------------+-----+----------+----------+
+| kd_mk  | nama_mk             | sks | semester | kode_dos |
++--------+---------------------+-----+----------+----------+
+| TIK123 | Jaringan Komputer   | 2   | 5        | 33       |
+| TIK342 | Pratikum Basis Data | 1   | 3        | 11       |
++--------+---------------------+-----+----------+----------+
+2 rows in set (0.009 sec)
+
+MariaDB [dbmss_2420506040]>
